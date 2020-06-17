@@ -12,4 +12,14 @@
   height: 2%;
   background: black;
   border: 1px solid white;
+  z-index: 2;
+}
+
+.snake-food {
+  position: absolute;
+  width: 2%;
+  height: 2%;
+  background: red;
+  border: 1px solid white;
+  z-index: 3;
 }
