@@ -21,9 +21,11 @@ class App extends Component {
     foodDot:
       getRandomCoordinates(),
     direction: 'RIGHT',
+    speed: 200,
   }
 
   componentDidMount() {
+    setInterval(this.moveSnake, this.state.speed);      //Time movement
     document.onkeydown = this.onKeyDown;
   }
 
@@ -43,6 +45,31 @@ class App extends Component {
         this.setState({ direction: 'RIGHT' });
         break;
     }
+  }
+
+  moveSnake = () => {
+    let dots = [...this.state.snakeDots];
+    let head = dots[dots.length - 1];
+
+    switch (this.state.direction) {
+      case 'RIGHT':
+        head = [head[0] + 2, head[1]];
+        break;
+      case 'LEFT':
+        head = [head[0] - 2, head[1]];
+        break;
+      case 'DOWN':
+        head = [head[0], head[1] + 2];
+        break;
+      case 'UP':
+        head = [head[0], head[1] - 2];
+        break;
+    }
+    dots.push(head);      // Add the head (new dot at beggining)
+    dots.shift();         // Remove the tail (last dot)
+    this.setState({
+      snakeDots: dots     // Add the new dots state (new position)
+    })
   }
 
   render() {
